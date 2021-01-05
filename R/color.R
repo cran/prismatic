@@ -22,10 +22,14 @@
 #'
 #' plot(terrain_10, labels = TRUE)
 #'
-#' plot(color(gray.colors(10)), labels = TRUE)
+#' grey_10 <- color(gray.colors(10, start = 0, end = 1))
+#'
+#' grey_10
+#'
+#' plot(grey_10, labels = TRUE)
 color <- function(col) {
   if (is.list(col)) stop("`col` must not be a list.")
-  if (length(col) < 1) stop("The length of `col` must be positive.")
+  if (length(col) < 0) stop("The length of `col` must be positive.")
   col <- rgb2col(col2rgb(col, alpha = TRUE), alpha = TRUE)
   attr(col, "class") <- "colors"
   col
@@ -54,35 +58,27 @@ is_color <- function(x) {
 }
 
 #' @export
-#' @importFrom graphics plot rect text
 plot.colors <- function(x, labels = FALSE, ...) {
-  plot(0, type = "n", axes = FALSE, ann = FALSE, xlim = c(0, length(x) + 1),
-       ylim = c(-0.1, 1.1), mar = rep(0, 4))
-  rect(xleft = seq_along(x) - 0.5, ybottom = 0, xright = seq_along(x) + 0.5,
-       ytop = 1, col = x, border = NA)
+  plot(0,
+    type = "n", axes = FALSE, ann = FALSE, xlim = c(0, length(x) + 1),
+    ylim = c(-0.1, 1.1), mar = rep(0, 4)
+  )
+  rect(
+    xleft = seq_along(x) - 0.5, ybottom = 0, xright = seq_along(x) + 0.5,
+    ytop = 1, col = x, border = NA
+  )
   if (labels) {
-    color_light <- farver::convert_colour(t(col2rgb(x)), "rgb", "hsl")[, "l"]
-    label_col <- ifelse(color_light > 31,
-                        "#010101",
-                        "#FFFFFF")
+    label_col <- vapply(x, best_contrast, FUN.VALUE = character(1))
     text(x = seq_along(x), y = 0.5, labels = x, srt = 90, col = label_col)
   }
   rect(xleft = 0.5, ybottom = 0, xright = length(x) + 0.5, ytop = 1)
 }
 
 color_styler <- function(x) {
-  color_lightness <- farver::convert_colour(t(col2rgb(x)), "rgb", "hsl")[, "l"]
-
-  text <- crayon::make_style(
-    ifelse(color_lightness > 31,
-           "#010101",
-           "#FFFFFF"),
-    bg = FALSE)
-
+  text <- crayon::make_style(best_contrast(x), bg = FALSE)
   background <- crayon::make_style(x, bg = TRUE, colors = 256, grey = FALSE)
 
   crayon::combine_styles(text, background)(x)
-
 }
 
 pretty_print <- function(x) {

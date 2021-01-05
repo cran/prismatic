@@ -5,23 +5,26 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/EmilHvitfeldt/prismatic.svg?branch=master)](https://travis-ci.org/EmilHvitfeldt/prismatic)
+[![R build
+status](https://github.com/EmilHvitfeldt/prismatic/workflows/R-CMD-check/badge.svg)](https://github.com/EmilHvitfeldt/prismatic/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/EmilHvitfeldt/prismatic/branch/master/graph/badge.svg)](https://codecov.io/gh/EmilHvitfeldt/prismatic?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prismatic)](https://CRAN.R-project.org/package=prismatic)
+[![CRAN
+status](http://www.r-pkg.org/badges/version/prismatic)](https://CRAN.R-project.org/package=prismatic)
 [![Downloads](http://cranlogs.r-pkg.org/badges/prismatic)](https://CRAN.R-project.org/package=prismatic)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![DOI](https://zenodo.org/badge/205078698.svg)](https://zenodo.org/badge/latestdoi/205078698)
 <!-- badges: end -->
 
 The goal of prismatic is to provide color manipulation tools in R, in a
 intuitive, low-dependency and functional way.
 
-  - **intuitive** All the working functions are prefixed with `clr_`
+-   **intuitive** All the working functions are prefixed with `clr_`
     (**c**o**l**o**r**) allowing for easy autocompletion.
-  - **low-dependency** Only depends on
+-   **low-dependency** Only depends on
     [farver](https://github.com/thomasp85/farver).
-  - **functional** All functions have consistant inputs and outputes and
+-   **functional** All functions have consistent inputs and outputs and
     are thus fully pipeable.
 
 ## Installation
@@ -53,8 +56,8 @@ library(magrittr)
 terrain10 <- terrain.colors(10)
 
 terrain10
-#>  [1] "#00A600FF" "#2DB600FF" "#63C600FF" "#A0D600FF" "#E6E600FF"
-#>  [6] "#E8C32EFF" "#EBB25EFF" "#EDB48EFF" "#F0C9C0FF" "#F2F2F2FF"
+#>  [1] "#00A600" "#2DB600" "#63C600" "#A0D600" "#E6E600" "#E8C32E" "#EBB25E"
+#>  [8] "#EDB48E" "#F0C9C0" "#F2F2F2"
 
 terrain_color <- color(terrain10)
 
@@ -129,7 +132,6 @@ clr_rotate(ddd, 180) %>% plot()
 <img src="man/figures/README-unnamed-chunk-3-8.png" width="100%" />
 
 ``` r
-
 clr_protan(ddd) %>% plot()
 ```
 

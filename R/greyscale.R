@@ -21,7 +21,7 @@
 #' If method is "red_channel", "green_channel" or "blue_channel", then the
 #' corresponding color channel been selected for the values of grayscale.
 #'
-#' @source \url{https://www.tannerhelland.com/3643/grayscale-image-algorithm-vb6/}
+#' @source \url{https://tannerhelland.com/3643/grayscale-image-algorithm-vb6/}
 #' @source \url{https://en.wikipedia.org/wiki/Luma}
 #'
 #' @rdname clr_grayscale
@@ -35,27 +35,35 @@
 #'
 #' plot(clr_grayscale(terrain.colors(10)))
 #'
-#' plot(clr_grayscale(hcl.colors(10), method = "luma"))
-#' plot(clr_grayscale(hcl.colors(10), method = "averaging"))
-#' plot(clr_grayscale(hcl.colors(10), method = "min_decomp"))
-#' plot(clr_grayscale(hcl.colors(10), method = "max_decomp"))
-#' plot(clr_grayscale(hcl.colors(10), method = "red_channel"))
-#' plot(clr_grayscale(hcl.colors(10), method = "green_channel"))
-#' plot(clr_grayscale(hcl.colors(10), method = "blue_channel"))
-clr_grayscale <- function(col, method = c("luma", "averaging", "min_decomp",
-                                          "max_decomp", "red_channel",
-                                          "green_channel", "blue_channel")) {
+#' viridis_colors <- c(
+#'   "#4B0055FF", "#422C70FF", "#185086FF", "#007094FF",
+#'   "#008E98FF", "#00A890FF", "#00BE7DFF", "#6CD05EFF",
+#'   "#BBDD38FF", "#FDE333FF"
+#' )
+#'
+#' plot(clr_grayscale(viridis_colors, method = "luma"))
+#' plot(clr_grayscale(viridis_colors, method = "averaging"))
+#' plot(clr_grayscale(viridis_colors, method = "min_decomp"))
+#' plot(clr_grayscale(viridis_colors, method = "max_decomp"))
+#' plot(clr_grayscale(viridis_colors, method = "red_channel"))
+#' plot(clr_grayscale(viridis_colors, method = "green_channel"))
+#' plot(clr_grayscale(viridis_colors, method = "blue_channel"))
+clr_grayscale <- function(col, method = c(
+                            "luma", "averaging", "min_decomp",
+                            "max_decomp", "red_channel",
+                            "green_channel", "blue_channel"
+                          )) {
   col <- color(col)
 
   method <- match.arg(method)
   colors <- switch(method,
-                  luma = grayscale_luma(col),
-                  averaging = grayscale_averaging(col),
-                  min_decomp = grayscale_decomp(col, min),
-                  max_decomp = grayscale_decomp(col, max),
-                  red_channel = grayscale_channel(col, "red"),
-                  green_channel = grayscale_channel(col, "green"),
-                  blue_channel = grayscale_channel(col, "blue"),
+    luma = grayscale_luma(col),
+    averaging = grayscale_averaging(col),
+    min_decomp = grayscale_decomp(col, min),
+    max_decomp = grayscale_decomp(col, max),
+    red_channel = grayscale_channel(col, "red"),
+    green_channel = grayscale_channel(col, "green"),
+    blue_channel = grayscale_channel(col, "blue"),
   )
 
   color(colors)
@@ -63,10 +71,11 @@ clr_grayscale <- function(col, method = c("luma", "averaging", "min_decomp",
 
 #' @rdname clr_grayscale
 #' @export
-clr_greyscale <- function(col, method = c("luma", "averaging", "min_decomp",
-                                           "max_decomp", "red_channel",
-                                           "green_channel", "blue_channel")) {
-
+clr_greyscale <- function(col, method = c(
+                            "luma", "averaging", "min_decomp",
+                            "max_decomp", "red_channel",
+                            "green_channel", "blue_channel"
+                          )) {
   col <- color(col)
 
   method <- match.arg(method)

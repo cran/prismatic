@@ -1,3 +1,14 @@
+# prismatic 1.0.0
+
+* All functions now accepts zero length input.
+* Added `contrast_ratio()` function to calculate contrast ratios between colors. (#18)
+* Added `modify_hcl()` function to modify individual HCL axes. (#20)
+
+## Breaking changes
+
+* `clr_rotate()` now uses HCL instead of HSL as its color space for rotation. (#19)
+* `clr_lightness()` and `clr_darken()` now uses HCL instead of HSL as its default color space. (#19)
+
 # prismatic 0.2.0
 
 * Added `clr_alpha()` function to specify transparency. (#9)

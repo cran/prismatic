@@ -1,4 +1,4 @@
-test_length(clr_rotate)
+test_length(modify_hcl)
 
 test_color_class(clr_rotate)
 

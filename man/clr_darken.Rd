@@ -11,7 +11,7 @@
 \url{https://arxiv.org/abs/1903.06490}
 }
 \usage{
-clr_darken(col, shift = 0.5, space = c("HSL"))
+clr_darken(col, shift = 0.5, space = c("HCL", "HSL", "combined"))
 }
 \arguments{
 \item{col}{a color object or vector of any of the three kinds of R color
@@ -23,7 +23,7 @@ positive integer i meaning palette()[i].}
 complete darkening turning the color to black. Defaults to 0.5.}
 
 \item{space}{character string specifying the color space in which adjustment
-happens. Can be either "HLS", "HCL" or "combined". Defaults to "HSL".}
+happens. Can be either "HCL", "HSL" or "combined". Defaults to "HCL".}
 }
 \value{
 a color object of same length as col.
@@ -32,7 +32,7 @@ a color object of same length as col.
 Make a color more dark
 }
 \details{
-The colors will be trainsformed to HSL color space (hue, saturation,
+The colors will be transformed to HSL color space (hue, saturation,
  lightness) where the lightness of the color will  be modified. The lightness
  of a color takes a value between 0 and 1, with 0 being black and 1 being
  white. The \code{shift} argument takes a value between 0 and 1, where 0
@@ -43,16 +43,20 @@ The colors will be trainsformed to HSL color space (hue, saturation,
 If space = "HSL" then the colors are transformed to HSL space where
   the lightness value L is adjusted. If space = "HCL" then the colors are
   transformed to Cylindrical HCL space where the luminance value L is
-  adjusted. If space = "combined" then the colors are tranformed into HSL and
+  adjusted. If space = "combined" then the colors are transformed into HSL and
   Cylindrical HCL space. Where the color adjusting is happening HLS is copied
-  tto the values in the HCL tranformation. Thus the "combined" transformation
+  to the values in the HCL transformation. Thus the "combined" transformation
   adjusts the luminance in HCL space and chroma in HSL space. For more
-  information regarding use of color spaces, please refer to eh colorspace
+  information regarding use of color spaces, please refer to the {colorspace}
   paper \url{https://arxiv.org/abs/1903.06490}.
 }
 \examples{
 # Using linear shift
 plot(clr_darken(rep("red", 11), shift = seq(0, 1, 0.1)))
+plot(clr_darken(rep("red", 11), shift = seq(0, 1, 0.1), space = "HSL"))
+plot(clr_darken(rep("red", 11), shift = seq(0, 1, 0.1), space = "combined"))
+
+plot(clr_darken(terrain.colors(10)))
 
 # Using exponential shifts
 plot(clr_darken(rep("red", 11), shift = log(seq(1, exp(1), length.out = 11))))
