@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# prismatic <img src='man/figures/logo.png' align="right" height="139" />
+# prismatic <img src='man/figures/logo.png' height="139" style="float:right" />
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/EmilHvitfeldt/prismatic/workflows/R-CMD-check/badge.svg)](https://github.com/EmilHvitfeldt/prismatic/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/EmilHvitfeldt/prismatic/branch/master/graph/badge.svg)](https://app.codecov.io/gh/EmilHvitfeldt/prismatic?branch=master)
+coverage](https://codecov.io/gh/EmilHvitfeldt/prismatic/branch/main/graph/badge.svg)](https://app.codecov.io/gh/EmilHvitfeldt/prismatic?branch=main)
 [![CRAN
 status](http://www.r-pkg.org/badges/version/prismatic)](https://CRAN.R-project.org/package=prismatic)
 [![Downloads](http://cranlogs.r-pkg.org/badges/prismatic)](https://CRAN.R-project.org/package=prismatic)
@@ -131,6 +131,7 @@ clr_rotate(ddd, 180) %>% plot()
 <img src="man/figures/README-unnamed-chunk-3-8.png" width="100%" />
 
 ``` r
+
 clr_protan(ddd) %>% plot()
 ```
 
@@ -157,5 +158,5 @@ This package is hugely inspired by the JavaScript library
 
 Please note that the ‘prismatic’ project is released with a [Contributor
 Code of
-Conduct](https://github.com/EmilHvitfeldt/prismatic/blob/master/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/EmilHvitfeldt/prismatic/blob/main/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
