@@ -30,9 +30,12 @@
 color <- function(col) {
   if (is.list(col)) stop("`col` must not be a list.")
   if (length(col) < 0) stop("The length of `col` must be positive.")
-  col <- rgb2col(col2rgb(col, alpha = TRUE), alpha = TRUE)
-  attr(col, "class") <- "colors"
-  col
+  colors <- rgb2col(col2rgb(col, alpha = TRUE), alpha = TRUE)
+  if (has_names(col)) {
+    names(colors) <- names(col)
+  }
+  attr(colors, "class") <- "colors"
+  colors
 }
 
 #' @rdname color
@@ -67,18 +70,31 @@ plot.colors <- function(x, labels = FALSE, ...) {
     xleft = seq_along(x) - 0.5, ybottom = 0, xright = seq_along(x) + 0.5,
     ytop = 1, col = x, border = NA
   )
-  if (labels) {
+  if (is.logical(labels)) {
+    color_labels <- if (has_names(x)) names(x) else x
+    show_labels <- isTRUE(labels)
+  } else {
+    stopifnot(
+      "`labels` must be a character" = is.character(labels),
+      "`labels` must be the same length as `x`" = length(x) == length(labels)
+    )
+    color_labels <- labels
+    show_labels <- TRUE
+  }
+  if (show_labels) {
+    # Fill missing color labels with the color hex value
+    color_labels[!nzchar(color_labels)] <- x[!nzchar(color_labels)]
     label_col <- vapply(x, best_contrast, FUN.VALUE = character(1))
-    text(x = seq_along(x), y = 0.5, labels = x, srt = 90, col = label_col)
+    text(x = seq_along(x), y = 0.5, labels = color_labels, srt = 90, col = label_col)
   }
   rect(xleft = 0.5, ybottom = 0, xright = length(x) + 0.5, ytop = 1)
 }
 
 color_styler <- function(x) {
-  text <- crayon::make_style(best_contrast(x), bg = FALSE)
-  background <- crayon::make_style(x, bg = TRUE, colors = 256, grey = FALSE)
+  text <- cli::make_ansi_style(best_contrast(x), bg = FALSE)
+  background <- cli::make_ansi_style(x, bg = TRUE, colors = 256, grey = FALSE)
 
-  crayon::combine_styles(text, background)(x)
+  cli::combine_ansi_styles(text, background)(x)
 }
 
 pretty_print <- function(x) {
@@ -89,7 +105,7 @@ pretty_print <- function(x) {
 #' @export
 print.colors <- function(x, ...) {
   cat("<colors>\n")
-  if (requireNamespace("crayon", quietly = TRUE)) {
+  if (requireNamespace("cli", quietly = TRUE)) {
     pretty_print(x)
   } else {
     print(unclass(x))
